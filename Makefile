@@ -1,7 +1,8 @@
 # Basic Makefile
 
-UUID = panel-tweaks@it-und-entwicklung-fg.de
+UUID = panel-datetime-format@it-und-entwicklung-fg.de
 BASE_MODULES = extension.js format.js metadata.json LICENSE README.md
+EXTRA_MEDIA = logo.svg
 ifeq ($(strip $(DESTDIR)),)
 	INSTALLTYPE = local
 	INSTALLBASE = $(HOME)/.local/share/gnome-shell/extensions
@@ -10,7 +11,7 @@ else
 	SHARE_PREFIX = $(DESTDIR)/usr/share
 	INSTALLBASE = $(SHARE_PREFIX)/gnome-shell/extensions
 endif
-INSTALLNAME = panel-tweaks@it-und-entwicklung-fg.de
+INSTALLNAME = panel-datetime-format@it-und-entwicklung-fg.de
 
 # The command line passed variable VERSION is used to set the version string
 # in the metadata and in the generated zip-file. If no VERSION is passed, the
@@ -46,4 +47,6 @@ _build:
 	-rm -fR ./_build
 	mkdir -p _build
 	cp $(BASE_MODULES) _build
+	mkdir -p _build/media
+	cd media ; cp $(EXTRA_MEDIA) ../_build/media/
 	sed -i 's/"version": -1/"version": "$(VERSION)"/'  _build/metadata.json;
